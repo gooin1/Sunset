@@ -25,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.382"
+        android:id="@+id/sea"
         android:background="@color/sea"
 
         ></View>

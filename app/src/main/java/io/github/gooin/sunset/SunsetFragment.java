@@ -17,6 +17,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 public class SunsetFragment extends Fragment {
 
     private View mSenceView;
+    private View mSeaView;
     private View mSunView;
     private View mSkyView;
 
@@ -34,8 +35,28 @@ public class SunsetFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sunset, container, false);
 
         mSenceView=view ;
+        mSeaView = view.findViewById(R.id.sea);
+        mSeaView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startSunriseAnimation();
+            }
+        });
         mSunView = view.findViewById(R.id.sun);
+        mSunView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startAnimation();
+            }
+        });
         mSkyView=view.findViewById(R.id.sky);
+        mSkyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startAnimation();
+            }
+        });
+
 
         Resources resources = getResources();
         mBlueSkyColor = resources.getColor(R.color.blue_sky);
@@ -43,12 +64,7 @@ public class SunsetFragment extends Fragment {
         mNightSkyColor =  resources.getColor(R.color.night_sky);
 
 
-        mSenceView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startAnimation();
-            }
-        });
+
         return view;
     }
 
@@ -77,10 +93,18 @@ public class SunsetFragment extends Fragment {
                 .with(sunsetSkyAnimator)
                 .before(nightSkyAnimator);
         animatorSet.start();
-
-
-
-
     }
+
+    private void startSunriseAnimation() {
+        float sunYStart = mSunView.getTop();
+        float sunYEnd = mSkyView.getHeight();
+        ObjectAnimator heightAnimator = ObjectAnimator
+                .ofFloat(mSunView, "y", sunYEnd, sunYStart)
+                .setDuration(3000);
+
+        heightAnimator.start();
+    }
+
+
 }
 
